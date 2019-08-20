@@ -2,7 +2,7 @@
   <div>
     <el-form ref="loginForm" :model="form" :rules="loginRules" label-width="80px" class="login-box">
       <transition name="my">
-        <h3 class="login-title">欢迎登录</h3>
+        <h3 class="login-title">欢迎登录test</h3>
       </transition>
 
       <el-form-item label="账号" prop="username">
