@@ -1,45 +1,33 @@
 <template>
-  <div>
-    <el-form ref="loginForm" :model="form" :rules="loginRules" label-width="80px" class="login-box">
-      <transition name="my">
-        <h3 class="login-title">欢迎登录test</h3>
-      </transition>
+  <div class="login_container">
+    <el-form ref="loginForm" :model="form" :rules="loginRules" label-width="60px" class="login-box">
+      <h3 class="login-title">Zach软件开发管理系统</h3>
 
-      <el-form-item label="账号" prop="username">
+      <el-form-item label="账号" prop="username" class="account">
         <el-input type="text" placeholder="请输入账号" v-model="form.username"/>
       </el-form-item>
-      <el-form-item label="密码" prop="password">
+      <el-form-item label="密码" prop="password" class="pwd">
         <el-input type="password" placeholder="请输入密码" v-model="form.password"/>
       </el-form-item>
 
       <el-form-item>
         <el-row>
-          <el-button type="primary" v-on:click="onSubmit('loginForm')" >登录</el-button>
-          <el-button type="info" @click="reset('loginForm')">重置</el-button>
+          <el-button type="primary" v-on:click="onSubmit('loginForm')" class="loginButton">登录</el-button>
+          <el-button type="info" @click="reset('loginForm')" class="resetButton">重置</el-button>
         </el-row>
       </el-form-item>
-
-      <!-- 测试 -->
-      <el-form-item>
-        <el-button type="info" @click="showConsole()" size="small">console</el-button>
-      </el-form-item>
     </el-form>
-
-    <el-dialog
-      title="温馨提示"
-      :visible.sync="dialogVisible"
-      width="30%">
-      <span>请输入账号和密码</span>
-      <span slot="footer" class="dialog-footer">
-        <el-button type="primary" @click="dialogVisible = false">确 定</el-button>
-      </span>
-    </el-dialog>
+    <my-footer/>
   </div>
 </template>
 
 <script>
+import MyFooter from '../common-component/Footer'
 export default {
   name: 'Login',
+  components: {
+    MyFooter
+  },
   data () {
     return {
       form: {
@@ -54,65 +42,74 @@ export default {
         password: [
           {required: true, message: '密码不可为空', trigger: 'blur'}
         ]
-      },
-      // 对话框显示和隐藏
-      dialogVisible: false
+      }
     }
   },
   methods: {
-    onSubmit (formName) {
+    onSubmit (form) {
       // 为表单绑定验证功能
-      this.$refs[formName].validate((valid) => {
+      this.$refs[form].validate((valid) => {
         if (valid) {
           // 使用 vue-router 路由到指定页面，该方式称之为编程式导航
           // this.$router.push('/main')
           console.log('login success')
         } else {
-          this.dialogVisible = true
+          this.$message({
+            message: '请输入账号和密码',
+            type: 'error'
+          })
           return false
         }
       })
     },
     // 重置
-    reset (formName) {
+    reset (form) {
       console.log('调用了重置方法')
-      this.$refs[formName].resetFields()
-    },
-    // 测试：点击按钮，打印测试信息
-    showConsole () {
-      console.log('账号：' + this.form.username + '密码:' + this.form.password)
+      this.$refs[form].resetFields()
     }
   }
 }
 </script>
 
 <style lang="scss" scoped>
-  .login-box {
-    border: 1px solid #DCDFE6;
-    width: 350px;
-    margin: 180px auto;
-    padding: 35px 35px 15px 35px;
-    border-radius: 5px;
-    -webkit-border-radius: 5px;
-    -moz-border-radius: 5px;
-    box-shadow: 0 0 25px #909399;
-  }
+  @import'../style/variables.scss';
+  .login_container{
+    background-image: url(../../static/image/homebkg.jpg);
+    background-repeat: no-repeat;
+    background-size:cover;
+    background-position: 50%;
+    position:fixed;
+    width: 100%;
+    height: 100%;
+    left: 0;
+    top:0;
 
-  .login-title {
-    text-align: center;
-    margin: 0 auto 40px auto;
-    color: #303133;
-  }
+    .login-box {
+      border: 1px solid #DCDFE6;
+      width: 350px;
+      margin: 220px auto;
+      padding: 35px 35px 15px 35px;
+      border-radius: 5px;
+      box-shadow: 0 0 25px #909399;
 
-  .my-enter-active {
-    transition: all .9s cubic-bezier(1.0, 0.5, 0.8, 1.0);
-  }
-  .my-leave-active {
-    transition: all .8s cubic-bezier(1.0, 0.5, 0.8, 1.0);
-  }
-  .my-enter, .my-leave-to
-  {
-    transform: translateY(10px);
-    opacity: 0;
+      .loginButton{
+        background-color: $color-primary;
+      }
+      .resetButton{
+        background-color: $color-text-gray;
+      }
+
+      /deep/ .el-form-item__label{
+        font-size: 16px;
+        color: $color-primary;
+        font-weight: 800;
+      }
+    }
+
+    .login-title {
+      text-align: center;
+      margin: 0 auto 40px auto;
+      color: $color-primary;
+    }
   }
 </style>
