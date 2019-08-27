@@ -37,7 +37,7 @@ export default {
   name: 'FinishTask',
   data () {
     return {
-
+      tableData: []
     }
   }
 }

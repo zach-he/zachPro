@@ -9,11 +9,13 @@
         </el-aside>
 
         <el-main>
-          <el-tabs :tab-position="tabPosition">
+          <el-tabs>
             <el-tab-pane label="待办任务">
               <todo-task/>
             </el-tab-pane>
-            <el-tab-pane label="创建任务">创建任务</el-tab-pane>
+            <el-tab-pane label="创建任务">
+              <create-task/>
+            </el-tab-pane>
             <el-tab-pane label="已完成任务">
               <finish-task/>
             </el-tab-pane>
@@ -31,6 +33,7 @@ import NavMenu from '../common-component/NavMenu'
 import MyMes from './components/MyMes'
 import TodoTask from './components/TodoTask'
 import FinishTask from './components/FinishTask'
+import CreateTask from './components/CreateTask'
 export default {
   name: 'Main',
   data () {
@@ -43,7 +46,8 @@ export default {
     NavMenu,
     MyMes,
     TodoTask,
-    FinishTask
+    FinishTask,
+    CreateTask
   },
   computed: {
     currentYear: {

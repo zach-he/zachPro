@@ -37,7 +37,7 @@ export default {
   name: 'TodoTask',
   data () {
     return {
-
+      tableData: []
     }
   }
 }
